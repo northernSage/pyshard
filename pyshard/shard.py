@@ -20,7 +20,7 @@ class Shard(object):
     def _build_param_list(self, entrypoint, *args, **kwargs):
         return [entrypoint] + list(args) + [
             f'{k}={v}' for k, v in kwargs.items()
-            ] + self._data_tree(Path(entrypoint).parent)
+            ] + self._data_tree(Path(entrypoint).parent) + self.__bundle_dlls()
 
     def _data_tree(self, entry):
         data = []
@@ -33,6 +33,9 @@ class Shard(object):
             for file in files:
                 data.append(f'--add-data={root_path.joinpath(file)};{runtime_dir_path}')
         return data
+
+    def __bundle_dlls(self):
+        return [f'--add-binary={Path(__file__).parent.joinpath("crt_dlls", "*.dll")};.']
 
     def _walk_data(self, entry):
         for root, dirs, files in os.walk(entry):
@@ -61,4 +64,4 @@ if __name__ == "__main__":
 # ])
 
 
-# --runtime-tmpdir PATH
+# TODO: bundle microsoft c++ 2015 dlls
