@@ -1,6 +1,7 @@
 import PyInstaller.__main__
 import os
 from pathlib import Path
+from tempfile import TemporaryDirectory, gettempdir
 
 
 class Shard(object):
@@ -8,28 +9,33 @@ class Shard(object):
         pass
 
     def freeze(self, entrypoint, *args, **kwargs):
-        shell_params = [entrypoint] + list(args) + [
-            f'{k}={v}' for k, v in kwargs.items()] + self._dependency_tree(Path(entrypoint).parent)
-        print(shell_params)
+        shell_params = self._build_param_list(entrypoint, *args, **kwargs)
         try:
-            PyInstaller.__main__.run(shell_params)
+            with TemporaryDirectory(dir=gettempdir()) as build_dir:
+                shell_params.append(f'--workpath={build_dir}')
+                PyInstaller.__main__.run(shell_params)
         except Exception as e:
             print(e)
 
-    def _dependency_tree(self, entrydir):
+    def _build_param_list(self, entrypoint, *args, **kwargs):
+        return [entrypoint] + list(args) + [
+            f'{k}={v}' for k, v in kwargs.items()
+            ] + self._data_tree(Path(entrypoint).parent)
+
+    def _data_tree(self, entry):
         data = []
-        for root, _, files in self._walk_data(entrydir):
-            if Path(entrydir).stem == Path(root).stem:
-                runtime_dir = '.'
-            else:
-                runtime_dir = Path(root).stem
+        entry_path = Path(entry)
+        for root, _, files in self._walk_data(entry):
+            root_path = Path(root)
+            runtime_dir_path = Path('.')
+            if entry_path.stem != root_path.stem:
+                runtime_dir_path = runtime_dir_path.joinpath(root_path.relative_to(entry_path))
             for file in files:
-                arg = f'--add-data={Path(root).joinpath(file)};{runtime_dir}'
-                data.append(arg)
+                data.append(f'--add-data={root_path.joinpath(file)};{runtime_dir_path}')
         return data
 
-    def _walk_data(self, entrydir):
-        for root, dirs, files in os.walk(entrydir):
+    def _walk_data(self, entry):
+        for root, dirs, files in os.walk(entry):
             dirs[:] = [d for d in dirs if d not in ['venv', '__pycache__']]
             files[:] = [f for f in files if Path(f).suffix not in ['.py']]
             yield (root, dirs, files)
@@ -53,3 +59,6 @@ if __name__ == "__main__":
 #     '--icon=%s' % os.path.join('resource', 'path', 'icon.ico'),
 #     os.path.join('my_package', '__main__.py'),
 # ])
+
+
+# --runtime-tmpdir PATH
