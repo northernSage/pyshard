@@ -1,11 +1,15 @@
-import tkinter as tk
 import os
+import tkinter as tk
+from tkinter import (BooleanVar, Button, Checkbutton, Entry, Label, StringVar,
+                     filedialog, messagebox)
+from typing import List, Tuple
+
 from pyshard.shard import Shard
-from tkinter import filedialog, Button, Entry, Label, BooleanVar, Checkbutton, StringVar, messagebox
 
 
 class ShardMenu(object):
-    """Main GUI window"""
+    """Main GUI class"""
+
     def __init__(self, root):
         root.geometry('370x200')
         root.title('PyShard')
@@ -15,21 +19,27 @@ class ShardMenu(object):
         self.output_label, self.output_entry, self.output_button = self._new_path_entry_group(
             row=1, label_text='Output Location', button_text='Browse', action=self.get_output_path)
 
-        self.one_file, self.one_file_flag = self._new_flag_group(text='One-file Bundle', r=2, px=(20,0))
-        self.noconsole, self.noconsole_flag = self._new_flag_group(text='No-Console', r=2, c=1)
-        self.nowindowed, self.nowindowed_flag = self._new_flag_group(text='No-Windowed', r=3, px=(15, 0))
-        self.elevation, self.elevation_flag = self._new_flag_group(text='Run as Admin', r=3, c=1, px=(20, 0))
+        self.one_file, self.one_file_flag = self._new_flag_group(
+            text='One-file Bundle', r=2, px=(20, 0))
+        self.noconsole, self.noconsole_flag = self._new_flag_group(
+            text='No-Console', r=2, c=1)
+        self.nowindowed, self.nowindowed_flag = self._new_flag_group(
+            text='No-Windowed', r=3, px=(15, 0))
+        self.elevation, self.elevation_flag = self._new_flag_group(
+            text='Run as Admin', r=3, c=1, px=(20, 0))
 
         self.feedback = StringVar()
         self.feedback.set('Choose a package to freeze')
 
-        self.feedback_label = Label(root, textvariable=self.feedback, fg="steel blue")
+        self.feedback_label = Label(
+            root, textvariable=self.feedback, fg="steel blue")
         self.feedback_label.grid(row=4, column=1, pady=(15, 0))
 
-        self.freeze_button = Button(root, text='Freeze Package', command=self.freeze)
+        self.freeze_button = Button(
+            root, text='Freeze Package', command=self.freeze)
         self.freeze_button.grid(row=4, pady=(10, 0), padx=(10, 0))
 
-    def _new_path_entry_group(self, row=0, label_text='label', button_text='button', action=None):
+    def _new_path_entry_group(self, row: int = 0, label_text: str = 'label', button_text: str = 'button', action=None) -> Tuple[Label, Entry, Button]:
         """Create widget group for file/dir path input"""
         label = Label(root, text=label_text)
         label.grid(column=0, row=row, pady=(10, 0), padx=(10, 0))
@@ -39,20 +49,22 @@ class ShardMenu(object):
         button.grid(column=2, row=row, pady=(10, 0), padx=(10, 0))
         return label, entry, button
 
-    def _new_flag_group(self, text='flag', r=0, c=0, px=(10,0), py=(10,0)):
-        """Create flag input grup"""
+    def _new_flag_group(self, text: str = 'flag', r: int = 0, c: int = 0, px: Tuple[int, int] = (10, 0), py: Tuple[int, int] = (10, 0)) -> Tuple[BooleanVar, Checkbutton]:
+        """Create flag input group for compiling specifications"""
         boolean = BooleanVar()
-        flag = Checkbutton(root, text=text, variable=boolean, onvalue=True, offvalue=False)
-        flag.grid(row=r, column=c, pady=py, padx=px)    
-        return boolean, flag  
+        flag = Checkbutton(root, text=text, variable=boolean,
+                           onvalue=True, offvalue=False)
+        flag.grid(row=r, column=c, pady=py, padx=px)
+        return boolean, flag
 
-    def _parse_flags(self):
+    def _parse_flags(self) -> List[str]:
+        """Parse flags to pyinstaller arguments"""
         args = []
         if self.one_file.get():
             messagebox.showwarning(
-                title='One-file Bundle Restriction', 
+                title='One-file Bundle Restriction',
                 message='Make sure all data files and '
-                'assets are in your package\'s root directory. ' 
+                'assets are in your package\'s root directory. '
                 'One-file bundling compression will flatten '
                 'nested folders!'
             )
@@ -65,11 +77,13 @@ class ShardMenu(object):
             args.append('--uac-admin')
         return args
 
-    def _show_message(self, message):
+    def _show_message(self, message: str) -> None:
+        """Display message to user"""
         self.feedback.set(message)
         self.feedback_label.update()
 
-    def get_package_path(self):
+    def get_package_path(self) -> None:
+        """Get path to module entrypoint from user"""
         package_name = filedialog.askopenfilename(
             defaultextension='.py',
             filetypes=[('Python Files', '*.py')],
@@ -78,22 +92,26 @@ class ShardMenu(object):
         self.package_entry.delete(0, len(current_entry))
         self.package_entry.insert(0, package_name)
 
-    def get_output_path(self):
+    def get_output_path(self) -> None:
+        """Get path to directory where compiled package will be saved"""
         output_path = filedialog.askdirectory(mustexist=True)
         current_entry = self.output_entry.get()
         self.output_entry.delete(0, len(current_entry))
         self.output_entry.insert(0, output_path)
 
-    def freeze(self):
+    def freeze(self) -> None:
         """Set up args and start shard freezing"""
         output_dir, entrypoint = self.output_entry.get(), self.package_entry.get()
         if os.path.isdir(output_dir) and os.path.isfile(entrypoint):
-            args, kwargs = self._parse_flags() + ['--clean', '--noconfirm'], {'--distpath': output_dir, '--specpath': output_dir}
+            args, kwargs = self._parse_flags() + \
+                ['--clean',
+                    '--noconfirm'], {'--distpath': output_dir, '--specpath': output_dir}
             self._show_message('Freezing Package...')
             Shard().freeze(entrypoint, *args, **kwargs)
             self._show_message('Done Freezing!')
         else:
             self._show_message('Invalid entry/output values!')
+
 
 if __name__ == "__main__":
     root = tk.Tk()
