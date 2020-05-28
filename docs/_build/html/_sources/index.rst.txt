@@ -31,6 +31,7 @@ An ease-of-use, customized Pyinstaller wrapper made entirely in python.
 
 |
 
+
 Indices and tables
 ==================
 
@@ -38,3 +39,17 @@ Indices and tables
 * :ref:`search`
 
 
+PyShard gui
+===================
+.. automodule:: gui.ShardMenu
+   :members:
+   :private-members:
+   :undoc-members:
+   
+PyShard shard module
+====================
+.. automodule:: pyshard.shard.Shard
+   :members:
+   :private-members:
+   :undoc-members:
+   

@@ -7,6 +7,7 @@ import PyInstaller.__main__
 
 
 class Shard(object):
+    """Main PyShard class - Comprises all freezing functionality"""
     def __init__(self):
         pass
 
