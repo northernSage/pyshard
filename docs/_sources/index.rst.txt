@@ -11,7 +11,7 @@ Welcome to PyShard's API documentation!
 |
 
 API
-===+
+===
 
 |
 
