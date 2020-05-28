@@ -37,12 +37,6 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="features">
-<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p>An ease-of-use, customized Pyinstaller wrapper made entirely in python.</p>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -66,13 +60,96 @@
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
-<div class="section" id="module-gui.ShardMenu">
-<span id="pyshard-gui"></span><h1>PyShard gui<a class="headerlink" href="#module-gui.ShardMenu" title="Permalink to this headline">¶</a></h1>
-<p>Main GUI class</p>
+<div class="section" id="module-gui">
+<span id="pyshard-gui"></span><h1>PyShard gui<a class="headerlink" href="#module-gui" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="gui.ShardMenu">
+<em class="property">class </em><code class="sig-prename descclassname">gui.</code><code class="sig-name descname">ShardMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">root</span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui.ShardMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main GUI class</p>
+<dl class="py method">
+<dt id="gui.ShardMenu._new_flag_group">
+<code class="sig-name descname">_new_flag_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'flag'</span></em>, <em class="sig-param"><span class="n">r</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">c</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">px</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">10, 0</span></em>, <em class="sig-param"><span class="n">py</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">10, 0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>tkinter.BooleanVar<span class="p">, </span>tkinter.Checkbutton<span class="p">]</span><a class="headerlink" href="#gui.ShardMenu._new_flag_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create flag input group for compiling specifications</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu._new_path_entry_group">
+<code class="sig-name descname">_new_path_entry_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">label_text</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'label'</span></em>, <em class="sig-param"><span class="n">button_text</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'button'</span></em>, <em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>tkinter.Label<span class="p">, </span>tkinter.Entry<span class="p">, </span>tkinter.Button<span class="p">]</span><a class="headerlink" href="#gui.ShardMenu._new_path_entry_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create widget group for file/dir path input</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu._parse_flags">
+<code class="sig-name descname">_parse_flags</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#gui.ShardMenu._parse_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse flags to pyinstaller arguments</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu._show_message">
+<code class="sig-name descname">_show_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gui.ShardMenu._show_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display message to user</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu.freeze">
+<code class="sig-name descname">freeze</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gui.ShardMenu.freeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up args and start shard freezing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu.get_output_path">
+<code class="sig-name descname">get_output_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gui.ShardMenu.get_output_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get path to directory where compiled package will be saved</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gui.ShardMenu.get_package_path">
+<code class="sig-name descname">get_package_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gui.ShardMenu.get_package_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get path to module entrypoint from user</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-pyshard.shard.Shard">
-<span id="pyshard-shard-module"></span><h1>PyShard shard module<a class="headerlink" href="#module-pyshard.shard.Shard" title="Permalink to this headline">¶</a></h1>
-<p>Main PyShard class - Comprises all freezing functionality</p>
+<div class="section" id="module-pyshard.shard">
+<span id="pyshard-shard-module"></span><h1>PyShard shard_module<a class="headerlink" href="#module-pyshard.shard" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyshard.shard.Shard">
+<em class="property">class </em><code class="sig-prename descclassname">pyshard.shard.</code><code class="sig-name descname">Shard</code><a class="headerlink" href="#pyshard.shard.Shard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main PyShard class - Comprises all freezing functionality</p>
+<dl class="py method">
+<dt id="pyshard.shard.Shard._Shard__bundle_dlls">
+<code class="sig-name descname">_Shard__bundle_dlls</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#pyshard.shard.Shard._Shard__bundle_dlls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bundle required visual C++ run-time dlls from Visual Studio 2015</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyshard.shard.Shard._build_param_list">
+<code class="sig-name descname">_build_param_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entrypoint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#pyshard.shard.Shard._build_param_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build pyinstaller parameter list from user input</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyshard.shard.Shard._data_tree">
+<code class="sig-name descname">_data_tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entry</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#pyshard.shard.Shard._data_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate recursive dependency tree starting from package entrypoint</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyshard.shard.Shard._walk_data">
+<code class="sig-name descname">_walk_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entry</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Generator[Tuple[str, List[str], List[str]], None, None]<a class="headerlink" href="#pyshard.shard.Shard._walk_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate next walk step including only data files, source files will not be listed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyshard.shard.Shard.freeze">
+<code class="sig-name descname">freeze</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entrypoint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyshard.shard.Shard.freeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start freezing operation by calling pyinstaller executable, passing in
+parsed depency tree and user compiling specifications</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

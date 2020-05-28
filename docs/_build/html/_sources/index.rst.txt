@@ -10,11 +10,6 @@ Welcome to PyShard's documentation!
 
 |
 
-Features
-==================
-
-|
-
 An ease-of-use, customized Pyinstaller wrapper made entirely in python.
 
 |
@@ -41,15 +36,14 @@ Indices and tables
 
 PyShard gui
 ===================
-.. automodule:: gui.ShardMenu
+.. automodule:: gui
    :members:
    :private-members:
-   :undoc-members:
    
-PyShard shard module
+PyShard shard_module
 ====================
-.. automodule:: pyshard.shard.Shard
+.. automodule:: pyshard.shard
    :members:
    :private-members:
-   :undoc-members:
+
    

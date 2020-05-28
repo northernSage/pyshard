@@ -48,7 +48,7 @@ class Shard(object):
         return [f'--add-binary={Path(__file__).parent.joinpath("crt_dlls", "*.dll")};.']
 
     def _walk_data(self, entry: str) -> Generator[Tuple[str, List[str], List[str]], None, None]:
-        """Generate next walk step including only data files, no *.py and *.pyc files"""
+        """Generate next walk step including only data files, source files will not be listed"""
         for root, dirs, files in os.walk(entry):
             dirs[:] = [d for d in dirs if d not in ['venv', '__pycache__']]
             files[:] = [f for f in files if Path(f).suffix not in ['.py']]
